@@ -1,5 +1,5 @@
 # qase-cucumber6
-> To view other cucumber versions, check [here](https://github.com/cskmnrpt/qase-cucumber/branches).
+> To view other cucumber versions, check [here](https://github.com/cskmnrpt/qase-cucumber/branches/all?query=cucumber).
 1. [Syntax Examples](syntax-examples)
 2. [Frequently asked Questions](frequently-asked-questions)
 
