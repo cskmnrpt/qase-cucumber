@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 @Test
 @CucumberOptions(features = "src/test/java/com/example/resources/features/", glue = "com.example", plugin = {
-                "io.qase.cucumber6.QaseEventListener",
+                                "io.qase.cucumber5.QaseEventListener",
 })
 public class TestRunner extends AbstractTestNGCucumberTests {
 }
