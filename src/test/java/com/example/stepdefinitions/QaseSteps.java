@@ -1,8 +1,7 @@
 package com.example.stepdefinitions;
 
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
-import io.qase.cucumber6.Qase;
+import cucumber.api.java.en.*;
+import io.qase.cucumber3.Qase;
 
 public class QaseSteps {
     @Then("An example step")
