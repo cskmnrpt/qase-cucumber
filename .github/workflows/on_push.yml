@@ -3,11 +3,11 @@ name: Example tests
 on:
   push:
     branches:
-      - main
+      - cucumber7
 
   pull_request:
     branches:
-      - main
+      - cucumber7
 
   workflow_dispatch:
 
