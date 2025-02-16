@@ -1,4 +1,4 @@
-# qase-cucumber7
+# qase-cucumber6
 > To view other cucumber versions, check [here](https://github.com/cskmnrpt/qase-cucumber/branches).
 1. [Syntax Examples](syntax-examples)
 2. [Frequently asked Questions](frequently-asked-questions)

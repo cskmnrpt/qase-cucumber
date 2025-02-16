@@ -29,7 +29,7 @@ jobs:
         run: |
           BRANCH_NAME=${GITHUB_REF##*/}
           COMMIT_MESSAGE=$(git log -1 --pretty=format:%s)
-          echo "QASE_TESTOPS_RUN_TITLE=qase-cucumber@$BRANCH_NAME: $COMMIT_MESSAGE" >> $GITHUB_ENV
+          echo "QASE_TESTOPS_RUN_TITLE=qase-cucumber6@$BRANCH_NAME: $COMMIT_MESSAGE" >> $GITHUB_ENV
 
       - name: Install Dependencies
         run: mvn clean install -DskipTests
