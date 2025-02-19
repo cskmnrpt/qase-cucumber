@@ -16,7 +16,7 @@ This is an example repository with tests in the `src/test/java` directory. To ru
 
 2. Create a `qase.config.json` in the root of the repository, and add your token, and project code.
 
-3. Run `mvn clean test`.
+3. Run `QASE_MODE=testops mvn clean test`.
 
 
 ---
