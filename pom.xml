@@ -19,7 +19,7 @@
    <dependency>
       <groupId>io.qase</groupId>
       <artifactId>qase-cucumber-v7-reporter</artifactId>
-      <version>4.0.0</version>
+      <version>4.0.8</version>
       <scope>test</scope>
    </dependency>
    <dependency>
