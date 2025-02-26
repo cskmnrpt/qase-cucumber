@@ -13,6 +13,7 @@ import io.qase.cucumber7.Qase;
 import java.util.Base64;
 import java.io.File;
 import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 public class TestHooks {
     WebDriver driver;
@@ -25,28 +26,26 @@ public class TestHooks {
     }
 
     @After("@selenium")
-    public void embedScreenshot(Scenario scenario) {
+    public void attachScreenshot(Scenario scenario) {
         if (scenario.isFailed() && driver != null) {
             try {
-                // Capture screenshot in PNG format
-                byte[] screenshotBytes = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-
-                // Attach to Cucumber
-                scenario.attach(screenshotBytes, "image/png", "Failed Screenshot");
-
-                // Convert to Base64 for Qase
-                String base64Screenshot = Base64.getEncoder().encodeToString(screenshotBytes);
-
-                // Attach to Qase as an actual image
-                Qase.attach("failed-screenshot.png", base64Screenshot, "image/png");
-
-                // Save to file for debugging
-                File screenshotFile = new File("target/screenshots/failed-test.png");
+                // Generate unique filename using Unix timestamp
+                String fileName = "screenshot-" + System.currentTimeMillis() + ".png";
+                File screenshotFile = new File("target/screenshots/" + fileName);
                 screenshotFile.getParentFile().mkdirs();
-                Files.write(screenshotFile.toPath(), screenshotBytes);
+
+                // Capture and save screenshot
+                File tempFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+                Files.copy(tempFile.toPath(), screenshotFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                // Attach to Cucumber report
+                scenario.attach(Files.readAllBytes(screenshotFile.toPath()), "image/png", "Failed Screenshot");
+
+                // Attach to Qase
+                Qase.attach(screenshotFile.getPath());
 
             } catch (Exception e) {
-                System.err.println("❌ Error capturing/attaching screenshot: " + e.getMessage());
+                System.err.println("❌ Screenshot capture failed: " + e.getMessage());
             }
         }
     }
