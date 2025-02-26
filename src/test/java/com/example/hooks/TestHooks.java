@@ -11,6 +11,8 @@ import com.example.utils.DriverManager;
 import io.qase.cucumber7.Qase;
 
 import java.util.Base64;
+import java.io.File;
+import java.nio.file.Files;
 
 public class TestHooks {
     WebDriver driver;
@@ -26,18 +28,25 @@ public class TestHooks {
     public void embedScreenshot(Scenario scenario) {
         if (scenario.isFailed() && driver != null) {
             try {
-                // Capture screenshot as BASE64
-                String base64Screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BASE64);
+                // Capture screenshot in PNG format
+                byte[] screenshotBytes = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
 
-                // Attach to Cucumber Report
-                byte[] decodedBytes = Base64.getDecoder().decode(base64Screenshot);
-                scenario.attach(decodedBytes, "image/png", "Failed Screenshot");
+                // Attach to Cucumber
+                scenario.attach(screenshotBytes, "image/png", "Failed Screenshot");
 
-                // Attach to Qase
+                // Convert to Base64 for Qase
+                String base64Screenshot = Base64.getEncoder().encodeToString(screenshotBytes);
+
+                // Attach to Qase as an actual image
                 Qase.attach("failed-screenshot.png", base64Screenshot, "image/png");
 
+                // Save to file for debugging
+                File screenshotFile = new File("target/screenshots/failed-test.png");
+                screenshotFile.getParentFile().mkdirs();
+                Files.write(screenshotFile.toPath(), screenshotBytes);
+
             } catch (Exception e) {
-                System.err.println("❌ Error capturing or attaching screenshot: " + e.getMessage());
+                System.err.println("❌ Error capturing/attaching screenshot: " + e.getMessage());
             }
         }
     }
