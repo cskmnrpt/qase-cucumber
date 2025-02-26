@@ -47,6 +47,7 @@ public class TestHooks {
             } catch (Exception e) {
                 System.err.println("❌ Screenshot capture failed: " + e.getMessage());
             }
+            driver.quit();
         }
     }
 }
