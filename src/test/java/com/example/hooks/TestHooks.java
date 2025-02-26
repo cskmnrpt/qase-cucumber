@@ -33,8 +33,8 @@ public class TestHooks {
                 byte[] decodedBytes = Base64.getDecoder().decode(base64Screenshot);
                 scenario.attach(decodedBytes, "image/png", "Failed Screenshot");
 
-                // Attach to Qase (as Base64 string)
-                Qase.attach("failed-screenshot.txt", base64Screenshot, "text/plain");
+                // Attach to Qase
+                Qase.attach("failed-screenshot.png", base64Screenshot, "image/png");
 
             } catch (Exception e) {
                 System.err.println("❌ Error capturing or attaching screenshot: " + e.getMessage());
